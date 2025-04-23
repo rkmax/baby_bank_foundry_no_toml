@@ -1,6 +1,11 @@
-pragma solidity ^0.7.6;
+// SPDX-License-Identifier: UNKNOWN
+pragma solidity ^0.8.0;
+
+import "./helper.sol";
 
 contract baby_bank {
+    using RandomHelper for address;
+    
     mapping(address => uint256) public balance;
     mapping(address => uint256) public withdraw_time;
     mapping(address => bytes32) public user;
@@ -33,17 +38,14 @@ contract baby_bank {
             return;
         }
         uint256 gift = 0;
-        uint256 lucky = 0;
 
         if (block.number > withdraw_time[msg.sender]) {
-            // VULN: bad randomness
-            lucky = uint256(keccak256(abi.encodePacked(block.number, msg.sender))) % 10;
-            if (lucky == 0) {
-                gift = (10 ** 15) * withdraw_time[msg.sender];
-            }
+            // Using the library function with the "using for" syntax
+            gift = msg.sender.calculateGift(block.number, withdraw_time[msg.sender]);
         }
+        
         uint256 amount = balance[msg.sender] + gift;
         balance[msg.sender] = 0;
-        msg.sender.transfer(amount);
+        payable(msg.sender).transfer(amount);
     }
 }
