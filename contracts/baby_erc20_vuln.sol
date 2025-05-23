@@ -37,13 +37,12 @@ contract VulnerableBabyToken {
     
     /**
      * @dev Transfer tokens to a specified address
-     * VULNERABILITY: Missing zero address check
-     * VULNERABILITY: No SafeMath (though Solidity 0.8+ has built-in overflow protection)
      */
     function transfer(address _to, uint256 _value) public returns (bool) {
-        // VULNERABILITY: No check if _to is address(0)
+        // Does not check if _to is address(0)
+        // Does not check if _value is zero, allowing zero-value transfers
+        // Does not check if msg.sender has sufficient balance before subtraction
         
-        // VULNERABILITY: Integer overflow/underflow potential in earlier Solidity versions
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
         
@@ -53,10 +52,9 @@ contract VulnerableBabyToken {
     
     /**
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
-     * VULNERABILITY: Allowance double-spend exploit
      */
     function approve(address _spender, uint256 _value) public returns (bool) {
-        // VULNERABILITY: This approve function is vulnerable to the "allowance double-spend" exploit
+        // This approve function is vulnerable to the "allowance double-spend" exploit
         // The proper way is to first reduce allowance to 0, then set it to the new value
         allowance[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
