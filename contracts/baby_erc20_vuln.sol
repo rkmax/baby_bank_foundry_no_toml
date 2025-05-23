@@ -29,7 +29,7 @@ contract VulnerableBabyToken {
      * @dev Constructor that gives the msg.sender all of existing tokens
      */
     constructor(uint256 initialSupply) {
-        owner = msg.sender;
+        owner = msg.sender; // hey
         totalSupply = initialSupply * 10 ** uint256(decimals);
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
