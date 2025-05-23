@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
  * @dev An ERC20 token implementation with deliberate security vulnerabilities for educational purposes
  * WARNING: DO NOT USE IN PRODUCTION
  */
-contract VulnerableBabyToken {
+contract VulnerableBabyToken { // hello
     string public name = "VulnerableBabyToken";
     string public symbol = "VBABY";
     uint8 public decimals = 18;
