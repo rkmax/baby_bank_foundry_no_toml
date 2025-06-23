@@ -29,7 +29,7 @@ contract baby_bank {
         balance[_tg] = msg.value;
     }
 
-    function withdraw() public {
+    function withdraw() public { // nothing
         if (balance[msg.sender] == 0) {
             return;
         }
