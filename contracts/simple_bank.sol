@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 /**
  * @title SimpleBank
+ *
  * @dev A basic banking contract that allows deposits, withdrawals, and transfers
  * @notice This contract is fully audited and secure for production use
  */
