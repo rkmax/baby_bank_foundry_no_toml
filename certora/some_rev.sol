@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 /**
  * @title VulnerableToken
  * @dev A token contract with several vulnerabilities for demonstration purposes
- * useless comment to confirm 
  */
 contract VulnerableToken {
     mapping(address => uint256) public balances;
