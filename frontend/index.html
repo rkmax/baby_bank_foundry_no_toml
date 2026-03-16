@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Bank Audit Console</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Security audit demo</p>
+          <h1>Baby Bank Audit Console</h1>
+          <p class="hero-text">
+            A lightweight dummy frontend for the vulnerable <code>baby_bank</code>
+            contract. It simulates the core flow, keeps a local activity timeline,
+            and highlights the risky behaviors that an auditor would want to
+            inspect first.
+          </p>
+          <div class="hero-actions">
+            <button id="advance-one" class="ghost-button" type="button">
+              Advance 1 block
+            </button>
+            <button id="advance-ten" class="ghost-button" type="button">
+              Advance 10 blocks
+            </button>
+          </div>
+        </div>
+
+        <aside class="hero-summary">
+          <p class="panel-label">Environment snapshot</p>
+          <dl class="meta-grid">
+            <div>
+              <dt>Contract</dt>
+              <dd>baby_bank</dd>
+            </div>
+            <div>
+              <dt>Mode</dt>
+              <dd>Local dummy frontend</dd>
+            </div>
+            <div>
+              <dt>Primary flow</dt>
+              <dd>signup / deposit / withdraw</dd>
+            </div>
+            <div>
+              <dt>Known findings</dt>
+              <dd><span id="finding-count">0</span> issues</dd>
+            </div>
+          </dl>
+        </aside>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <p class="panel-label">Contract runtime</p>
+              <h2>Wallet snapshot</h2>
+            </div>
+            <span class="pill" id="connection-pill">Demo only</span>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <p class="stat-label">Current block</p>
+              <p class="stat-value" id="current-block">0</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-label">Locked balance</p>
+              <p class="stat-value" id="locked-balance">0 ETH</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-label">Unlock block</p>
+              <p class="stat-value" id="unlock-block">Not scheduled</p>
+            </article>
+            <article class="stat-card">
+              <p class="stat-label">Registered alias</p>
+              <p class="stat-value" id="registered-alias">Not registered</p>
+            </article>
+          </div>
+
+          <div class="wallet-card">
+            <div>
+              <p class="panel-label">Active recipient wallet</p>
+              <p class="wallet-address" id="wallet-address"></p>
+            </div>
+            <div class="runtime-meta">
+              <div>
+                <span>Contract address</span>
+                <strong id="contract-address"></strong>
+              </div>
+              <div>
+                <span>Last payout</span>
+                <strong id="last-payout">0 ETH</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-banner" id="status-banner">
+            The demo is ready. Register the recipient alias to unlock the rest of
+            the flow.
+          </div>
+        </section>
+
+        <section class="panel flow-panel">
+          <div class="section-heading">
+            <div>
+              <p class="panel-label">Interaction flow</p>
+              <h2>Simulate contract actions</h2>
+            </div>
+            <span class="pill subtle-pill">TypeScript + HTML</span>
+          </div>
+
+          <div class="form-stack">
+            <form id="signup-form" class="action-form">
+              <div class="form-copy">
+                <h3>1. Sign up recipient</h3>
+                <p>
+                  Mirrors <code>signup(string)</code>. The contract ignores
+                  duplicate signups, so the demo keeps that behavior visible.
+                </p>
+              </div>
+              <label>
+                Recipient alias
+                <input
+                  id="recipient-alias-input"
+                  name="recipientAlias"
+                  type="text"
+                  maxlength="32"
+                  placeholder="alice"
+                  autocomplete="off"
+                />
+              </label>
+              <button type="submit" class="primary-button">Register alias</button>
+            </form>
+
+            <form id="deposit-form" class="action-form">
+              <div class="form-copy">
+                <h3>2. Schedule deposit</h3>
+                <p>
+                  Mirrors <code>deposit(uint256,address,string)</code>. Funds are
+                  assigned to the active wallet and overwrite any previous balance.
+                </p>
+              </div>
+              <div class="inline-fields">
+                <label>
+                  Confirm alias
+                  <input
+                    id="confirm-alias-input"
+                    name="confirmAlias"
+                    type="text"
+                    maxlength="32"
+                    placeholder="alice"
+                    autocomplete="off"
+                  />
+                </label>
+                <label>
+                  Lock blocks
+                  <input
+                    id="lock-blocks-input"
+                    name="lockBlocks"
+                    type="number"
+                    min="0"
+                    step="1"
+                    value="5"
+                  />
+                </label>
+              </div>
+              <label>
+                Amount in ETH
+                <input
+                  id="deposit-amount-input"
+                  name="depositAmount"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  value="0.50"
+                />
+              </label>
+              <button type="submit" class="primary-button">Queue deposit</button>
+            </form>
+
+            <form id="withdraw-form" class="action-form">
+              <div class="form-copy">
+                <h3>3. Withdraw balance</h3>
+                <p>
+                  Mirrors <code>withdraw()</code>. Advancing the block past the
+                  unlock point may trigger a predictable bonus path in the demo to
+                  illustrate the weak randomness issue.
+                </p>
+              </div>
+              <button type="submit" class="primary-button">Run withdrawal</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <p class="panel-label">Audit surface</p>
+              <h2>Findings and method map</h2>
+            </div>
+            <span class="pill warning-pill">Insecure by design</span>
+          </div>
+
+          <div class="method-list" id="method-list"></div>
+          <div class="finding-list" id="finding-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <p class="panel-label">Timeline</p>
+              <h2>Recent activity</h2>
+            </div>
+            <span class="pill neutral-pill">Local state only</span>
+          </div>
+
+          <div class="timeline" id="activity-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./dist/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "Node",
+    "lib": ["DOM", "ES2020"],
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "newLine": "lf",
+    "rootDir": "frontend/src",
+    "outDir": "frontend/dist",
+    "noEmitOnError": true
+  },
+  "include": ["frontend/src/**/*.ts"]
+}

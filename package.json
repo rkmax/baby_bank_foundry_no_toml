@@ -1,0 +1,12 @@
+{
+  "name": "baby-bank-audit-demo",
+  "private": true,
+  "scripts": {
+    "build:frontend": "tsc -p tsconfig.frontend.json",
+    "check:frontend": "tsc -p tsconfig.frontend.json --noEmit",
+    "serve:frontend": "npm run build:frontend && python3 -m http.server 4173 --directory frontend"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
