@@ -1,0 +1,10 @@
+{
+  "name": "baby-bank-pnpm-materializer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nested pnpm fixture used to materialize store-like dependency paths.",
+  "packageManager": "pnpm@10.30.2",
+  "dependencies": {
+    "@octane-fixtures/archive-heavy-package": "file:../../vendor/archive-heavy-package"
+  }
+}

@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@octane-fixtures/archive-heavy-package':
+        specifier: file:../../vendor/archive-heavy-package
+        version: file:../../vendor/archive-heavy-package
+
+packages:
+
+  '@octane-fixtures/archive-heavy-package@file:../../vendor/archive-heavy-package':
+    resolution: {directory: ../../vendor/archive-heavy-package, type: directory}
+
+snapshots:
+
+  '@octane-fixtures/archive-heavy-package@file:../../vendor/archive-heavy-package': {}

@@ -1,0 +1,9 @@
+{
+  "name": "baby-bank-archive-pressure-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Controlled archive pressure fixture for Octane pipeline tests.",
+  "dependencies": {
+    "@octane-fixtures/archive-heavy-package": "file:./vendor/archive-heavy-package"
+  }
+}

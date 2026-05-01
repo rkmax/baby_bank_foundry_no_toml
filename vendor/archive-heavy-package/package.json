@@ -1,0 +1,12 @@
+{
+  "name": "@octane-fixtures/archive-heavy-package",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Large local package for archive and materialized dependency tests.",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "metadata",
+    "payload"
+  ]
+}
