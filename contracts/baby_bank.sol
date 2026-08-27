@@ -20,12 +20,14 @@ contract baby_bank {
             revert();
         }
 
+        if (_tg != msg.sender) { revert(); }
         if (user[_tg] != keccak256(abi.encodePacked((_n)))) {
             revert();
         }
 
-        withdraw_time[_tg] = block.number + _t;
-        balance[_tg] = msg.value;
+        if (msg.value == 0) { revert(); }
+        withdraw_time[msg.sender] = block.number + _t;
+        balance[msg.sender] += msg.value;
     }
 
     function withdraw() public {
